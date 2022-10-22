@@ -41,7 +41,6 @@ const registerShema = joi.object({
   email: joi.string().pattern(emailRegexp).required(),
   password: joi.string().min(6).required(),
   subscription: joi.string().valid(...subscriptionArray),
-  // avatarURL: joi.string().required,
 });
 
 const loginShema = joi.object({
