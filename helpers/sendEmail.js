@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer");
-require("dotenv").config();
 
 const RequestError = require("./RequestError");
 
@@ -18,11 +17,11 @@ const nodemailerConfig = {
 const transporter = nodemailer.createTransport(nodemailerConfig);
 
 const sendEmail = async (data) => {
-  const email = { ...data, from: "bogdan.lyamzin.d@gmail.com" };
+  const email = { ...data, from: "alexanderpopov_dev@meta.ua" };
   try {
     await transporter.sendMail(email);
   } catch (error) {
-    throw RequestError(404, "Not found");
+    throw RequestError(error.status, error.message);
   }
 };
 

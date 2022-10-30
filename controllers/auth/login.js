@@ -9,7 +9,10 @@ const { SECRET_KEY } = process.env;
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user || !user.verify) {
+  if (!user.verify) {
+    throw RequestError(404, "User not found");
+  }
+  if (!user) {
     throw RequestError(
       401,
       "Email is wrong or not verify, or password is wrong"

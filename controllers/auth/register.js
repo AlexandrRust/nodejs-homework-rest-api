@@ -1,10 +1,12 @@
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
-const nanoid = require("nanoid");
+const { nanoid } = require("nanoid");
 
 const { User } = require("../../models/user");
 const { sendEmail } = require("../../helpers");
 const { RequestError } = require("../../helpers");
+
+const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
   const { email, password, subscription } = req.body;
@@ -26,7 +28,7 @@ const register = async (req, res) => {
   const mail = {
     to: email,
     subject: "Подтверждение email",
-    html: `<a target = "_blank" href = "http://localhost:3000/api/users/verify/${verificationToken}">Подтвердите email</a>`,
+    html: `<a target = "_blank" href = "${BASE_URL}/api/users/verify/${verificationToken}">Подтвердите email</a>`,
   };
 
   await sendEmail(mail);
@@ -35,7 +37,6 @@ const register = async (req, res) => {
     email: result.email,
     subscription: result.subscription,
     avatarURL,
-    verificationToken,
   });
 };
 

@@ -30,4 +30,11 @@ router.patch(
   ctrlWrapper(ctrl.updateAvatar)
 );
 
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
+router.post(
+  "/verify",
+  validateBody(schemas.verifyEmailShema),
+  ctrlWrapper(ctrl.resendingVerifyEmail)
+);
+
 module.exports = router;
